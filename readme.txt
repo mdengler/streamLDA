@@ -51,12 +51,16 @@ Files provided:
 * dirichlet_words.py: A class to represent the evolving vocabulary as
     probability distributions over words and topics. Provides backoff estimates
     of unseen words. 
-* streamwikipedia.py: An example Python script that uses the functions in
-    streamlda.py to fit a set of topics to the documents in Wikipedia.
+* stream_corpus.py: Applies streamLDA to test data, currently either 20 
+    newsgroups or wikipedia. The wikipedia option downloads and analyzes
+    a bunch of random Wikipedia articles using online VB for LDA. This 
+    is nice for breadth of examples, but is not precisely repeatable 
+    since the articles are random. 20 newsgroups provides data on which
+    a repeatable run can be performed.
+* twenty_news.py: A package of functions for processing a set of local
+    data.
 * wikirandom.py: A package of functions for downloading randomly chosen
     Wikipedia articles. 
-* printtopics.py: A Python script that displays the topics fit using the
-    functions in streamlda.py.
 * documentation.txt: More detailed commentary and implementation details. 
 * readme.txt: This file.
 * LICENSE: A copy of the GNU public license version 3.
@@ -69,8 +73,7 @@ Dependencies:
 
 
 Example:
-python streamwikipedia.py 101
-python printtopics.py 
+python stream_corpus.py wikipedia 101
 
 This would run the algorithm for 101 iterations, and display the
 (expected value under the variational posterior of the) topics fit by
