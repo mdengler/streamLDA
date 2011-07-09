@@ -4,3 +4,4 @@
 *.pyc
 *.pyo
 data/20_news_date
+topic_history.txt
