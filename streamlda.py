@@ -42,12 +42,22 @@ def dirichlet_expectation(alpha):
         return(psi(alpha) - psi(n.sum(alpha)))
     return(psi(alpha) - psi(n.sum(alpha, 1))[:, n.newaxis])
 
+def parser(d):
+    """
+    normalize and parse.
+    """
+    d = d.lower()
+    d = re.sub(r'-', ' ', d)
+    d = re.sub(r'[^a-z ]', '', d)
+    d = re.sub(r' +', ' ', d)
+    return string.split(d)
+
 class StreamLDA:
     """
     Implements stream-based LDA as an extension to online Variational Bayes for
     LDA, as described in (Hoffman et al. 2010).  """
 
-    def __init__(self, K, alpha, eta, tau0, kappa, sanity_check=False):
+    def __init__(self, K, alpha, eta, tau0, kappa, sanity_check=False, parser=parser):
         """
         Arguments:
         K: Number of topics
@@ -91,6 +101,9 @@ class StreamLDA:
         self._Elogbeta = self._lambda_mat # num_topics x num_words
         self._expElogbeta = n.exp(self._Elogbeta) # num_topics x num_words
         
+        # normalize and parse string function.
+        self.parser = parser
+        
     def parse_new_docs(self, new_docs):
         """
         Parse a document into a list of word ids and a list of counts,
@@ -114,7 +127,7 @@ class StreamLDA:
         """
 
         # if a single doc was passed in, convert it to a list. 
-        if type(new_docs) == str:
+        if type(new_docs) == str or type(new_docs) == unicode:
             new_docs = [new_docs,]
             
         D = len(new_docs)
