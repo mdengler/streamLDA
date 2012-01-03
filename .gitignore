@@ -4,4 +4,6 @@
 *.pyc
 *.pyo
 data/20_news_date
+.project
+.pydevproject
 topic_history.txt
